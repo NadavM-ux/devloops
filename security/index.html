@@ -1,0 +1,377 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>5 דברים להגיד לקלוד</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="חמש הוראות מוכנות להעתק-הדבק שכדאי להגיד לקלוד לפני שמעלים אפליקציה. DevLoops · חלק 1">
+<meta property="og:title" content="5 דברים להגיד לקלוד">
+<meta property="og:description" content="לפני שמעלים אפליקציה: חמש הוראות אבטחה מוכנות להעתק-הדבק. DevLoops · חלק 1">
+<meta property="og:type" content="article">
+<meta name="theme-color" content="#121110">
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@700;900&family=Rubik:wght@400;500;700&display=swap">
+<style>
+/* Layout: one RTL reading column (max 680px): masthead, how-to, five numbered instruction cards with copy wells, copy-all, part-2 teaser, sources */
+:root{
+  --bg:#121110; --card:#1D1A17; --well:#161412; --line:rgba(243,237,227,.11); --line-2:rgba(243,237,227,.2);
+  --text:#F3EDE3; --mute:#8F877C; --accent:#E2703F; --accent-text:#EE8A5D; --accent-ink:#121110; --ok:#86C08A; --ok-ink:#0F1A10;
+  --grid:rgba(243,237,227,.036); --glow:rgba(226,112,63,.13); --shadow:0 22px 44px -18px rgba(0,0,0,.7);
+  --face:#0B0A09; --face-rim:#F3EDE3; --face-eye:#FFFFFF; --code-bg:rgba(243,237,227,.07);
+  --f-display:"Frank Ruhl Libre","David Libre","Times New Roman",serif;
+  --f-ui:"Rubik","Assistant","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --f-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#F4EEE3; --card:#FFFFFF; --well:#F8F4EC; --line:rgba(20,18,16,.1); --line-2:rgba(20,18,16,.2);
+  --text:#141210; --mute:#6B6359; --accent:#D9653B; --accent-text:#A84B27; --accent-ink:#141210; --ok:#2F7D46; --ok-ink:#FFFFFF;
+  --grid:rgba(20,18,16,.045); --glow:rgba(217,101,59,.12); --shadow:0 18px 36px -20px rgba(80,52,30,.35);
+  --face:#0B0A09; --face-rim:#0B0A09; --face-eye:#FFFFFF; --code-bg:rgba(20,18,16,.06); color-scheme:light;
+}}
+:root[data-theme="light"]{
+  --bg:#F4EEE3; --card:#FFFFFF; --well:#F8F4EC; --line:rgba(20,18,16,.1); --line-2:rgba(20,18,16,.2);
+  --text:#141210; --mute:#6B6359; --accent:#D9653B; --accent-text:#A84B27; --accent-ink:#141210; --ok:#2F7D46; --ok-ink:#FFFFFF;
+  --grid:rgba(20,18,16,.045); --glow:rgba(217,101,59,.12); --shadow:0 18px 36px -20px rgba(80,52,30,.35);
+  --face:#0B0A09; --face-rim:#0B0A09; --face-eye:#FFFFFF; --code-bg:rgba(20,18,16,.06); color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{
+  background-color:var(--bg); color:var(--text); font-family:var(--f-ui); font-size:17px; line-height:1.65;
+  background-image:radial-gradient(120% 60% at 80% -10%,var(--glow),transparent 60%),
+    linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:auto,72px 72px,72px 72px;
+  -webkit-text-size-adjust:100%;
+}
+.page{max-width:680px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px;display:flex;flex-direction:column;gap:30px}
+h1,h2,h3,p,ol,ul{margin:0}
+a{color:var(--accent-text)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+code{font-family:var(--f-mono);font-size:.84em;background:var(--code-bg);padding:.08em .38em;border-radius:5px;unicode-bidi:isolate;white-space:nowrap}
+bdi{unicode-bidi:isolate}
+.nw{white-space:nowrap}
+
+/* masthead */
+.brand{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--mute)}
+.face{width:30px;height:30px;flex:none}
+.brand b{color:var(--text);font-weight:700;font-size:15px}
+.part{margin-inline-start:auto;font-size:13px;font-weight:500;color:var(--text);border:1px solid var(--line-2);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.hero{display:flex;flex-direction:column;gap:12px}
+.eyebrow{font-weight:500;font-size:15px;color:var(--accent-text)}
+h1{font-family:var(--f-display);font-weight:900;font-size:clamp(42px,11.5vw,66px);line-height:1;letter-spacing:-.01em;text-wrap:balance}
+.lead{color:var(--text);opacity:.86;max-width:34em}
+
+/* how to use */
+.how{display:flex;flex-direction:column;gap:14px;border-block:1px solid var(--line);padding-block:18px}
+.how h2{font-size:15px;font-weight:700;font-family:var(--f-ui)}
+.steps{list-style:none;padding:0;display:grid;gap:10px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start;font-size:16px;line-height:1.55;counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent-text);font-size:13px;font-weight:700;margin-top:1px}
+.lang{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.lang-l{font-size:14px;color:var(--mute)}
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:10px;padding:3px;gap:3px}
+.seg button{font:500 15px/1 var(--f-ui);color:var(--mute);background:transparent;border:0;border-radius:7px;padding:9px 14px;min-height:38px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--text);color:var(--bg)}
+.lang-hint{font-size:13.5px;color:var(--mute)}
+.jump{font-size:15px;font-weight:500;text-decoration:none;border-bottom:1px solid currentColor;align-self:flex-start}
+
+/* tip cards */
+.tips{display:flex;flex-direction:column;gap:22px}
+.tip{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:20px 18px 18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.tip-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center}
+.num{font-family:var(--f-display);font-weight:900;font-size:64px;line-height:.8;color:transparent;-webkit-text-stroke:1.6px var(--accent);font-variant-numeric:lining-nums tabular-nums;padding-top:6px}
+.tip-titles{display:flex;flex-direction:column;gap:4px;min-width:0}
+h2{font-family:var(--f-display);font-weight:900;font-size:clamp(27px,7.4vw,33px);line-height:1.08;text-wrap:balance}
+.en{font-size:12.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.why{max-width:36em}
+.note{font-size:15px;color:var(--mute);max-width:36em}
+.prompt{background:var(--well);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}
+.prompt-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-block:8px;padding-inline:14px 8px;border-bottom:1px solid var(--line)}
+.plabel{font-size:13.5px;font-weight:500;color:var(--mute)}
+.ptext{white-space:pre-wrap;overflow-wrap:anywhere;font-size:15.5px;line-height:1.72;padding:14px 14px 16px;text-align:start}
+.ptext[lang="en"]{font-size:15px}
+.ptext code{white-space:normal;overflow-wrap:anywhere}
+.check{font-size:15px;color:var(--text);opacity:.9;display:block}
+.ck{display:inline-block;font-weight:700;color:var(--accent-text);margin-inline-end:6px}
+
+/* copy button */
+.copy{display:inline-flex;align-items:center;gap:7px;font:500 15px/1 var(--f-ui);background:var(--accent);color:var(--accent-ink);border:0;border-radius:9px;padding:10px 14px;min-height:42px;cursor:pointer;white-space:nowrap}
+.copy .ico{width:18px;height:18px;display:block}
+.copy.done{background:var(--ok);color:var(--ok-ink)}
+@media (hover:hover){.copy:hover{filter:brightness(1.06)}}
+@media (prefers-reduced-motion:no-preference){.copy{transition:background-color .18s ease,transform .12s ease}.copy:active{transform:scale(.97)}}
+
+/* copy all */
+.all{border:1.5px solid var(--accent);border-radius:16px;padding:20px 18px;display:flex;flex-direction:column;gap:14px;background:var(--card)}
+.all-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.all h2{font-size:clamp(25px,6.6vw,30px)}
+.all p{font-size:16px;max-width:36em}
+.copy-lg{font-size:16px;padding:12px 16px;min-height:46px}
+details{border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-size:15px;font-weight:500;color:var(--accent-text);min-height:32px;display:flex;align-items:center}
+details .ptext{background:var(--well);border:1px solid var(--line);border-radius:12px;margin-top:10px}
+
+/* part 2 */
+.next{display:flex;flex-direction:column;gap:14px;padding-top:6px}
+.next-list{list-style:none;padding:0;display:grid;gap:2px}
+.next-list li{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding-block:9px;border-bottom:1px dashed var(--line-2)}
+.nn{font-family:var(--f-display);font-weight:900;font-size:20px;color:var(--mute);font-variant-numeric:tabular-nums}
+.nt{font-weight:500}
+.ne{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);text-align:end}
+.follow{display:inline-block;align-self:flex-start;font-weight:700;font-size:16px;line-height:1.4;text-decoration:none;background:var(--text);color:var(--bg);border-radius:10px;padding:12px 16px}
+
+/* sources + foot */
+.sources{display:flex;flex-direction:column;gap:10px}
+.sources h3{font-size:14px;font-weight:700;color:var(--mute)}
+.sources ul{list-style:none;padding:0;display:grid;gap:8px}
+.sources a{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:10px;text-decoration:none;font-size:15px;line-height:1.5;color:var(--text)}
+.sn{font-weight:700;color:var(--accent-text)}
+.st{text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:4px}
+.foot{font-size:13.5px;color:var(--mute);border-top:1px solid var(--line);padding-top:16px;display:flex;flex-direction:column;gap:8px}
+.toast{position:fixed;inset-inline:0;bottom:0;display:flex;justify-content:center;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));pointer-events:none;z-index:20}
+.toast span{background:var(--text);color:var(--bg);font-size:15px;font-weight:500;border-radius:10px;padding:11px 15px;box-shadow:var(--shadow);max-width:34em;text-align:center}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:480px){.next-list li{grid-template-columns:36px minmax(0,1fr)}.ne{display:none}}
+@media (max-width:380px){.num{font-size:54px}.tip{padding:18px 14px 16px}.prompt-bar{padding-inline-start:12px}}
+</style>
+</head>
+<body>
+<main class="page" dir="rtl" lang="he">
+  <header class="hero">
+    <div class="brand"><svg class="face" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-8 32 32)"><circle cx="32" cy="32" r="29.5" fill="var(--face)" stroke="var(--face-rim)" stroke-width="3"/><rect x="18.5" y="25" width="9" height="17" rx="4.5" fill="var(--face-eye)"/><rect x="36.5" y="20" width="9" height="17" rx="4.5" fill="var(--face-eye)"/></g></svg><b>DevLoops</b><bdi lang="en" class="nw">@devloops_il</bdi><span class="part">חלק 1 מתוך 2</span></div>
+    <p class="eyebrow">לפני שמעלים אפליקציה</p>
+    <h1>5 דברים להגיד לקלוד</h1>
+    <p class="lead">מנקודת מבט של מהנדס תוכנה. הנה חמש ההוראות מהסרטון, כל אחת מוכנה להעתק-הדבק, עם הסבר קצר ודרך לבדוק שזה באמת עבד.</p>
+  </header>
+
+  <section class="how" aria-labelledby="how-h">
+    <h2 id="how-h">איך משתמשים</h2>
+    <ol class="steps">
+      <li><span>פותחים את הפרויקט ב-<bdi lang="en" class="nw">Claude Code</bdi>, או מצרפים את הקוד לשיחה עם <bdi lang="en">Claude</bdi>.</span></li>
+      <li><span>מדביקים הוראה אחת בכל פעם.</span></li>
+      <li><span>קוראים מה הוא מצא, ורק אז מאשרים שינויים.</span></li>
+    </ol>
+    <div class="lang">
+      <span class="lang-l" id="lang-l">שפת ההוראות</span>
+      <div class="seg" role="group" aria-labelledby="lang-l">
+        <button type="button" id="lang-he" data-lang="he" aria-pressed="true">עברית</button>
+        <button type="button" id="lang-en" data-lang="en" aria-pressed="false" lang="en">English</button>
+      </div>
+      <span class="lang-hint">Claude עונה באותה שפה שבה כתבתם לו.</span>
+    </div>
+    <a class="jump" href="#all">מעדיפים להדביק פעם אחת? כל החמש בהודעה אחת</a>
+  </section>
+
+  <div class="tips">
+  <article class="tip" id="tip-1" aria-labelledby="tip-1-h">
+    <header class="tip-head">
+      <span class="num" aria-hidden="true">01</span>
+      <div class="tip-titles">
+        <h2 id="tip-1-h">להסתיר את המפתחות</h2>
+        <p class="en"><bdi lang="en">Hide API keys</bdi></p>
+      </div>
+    </header>
+    <p class="why">מפתח API זה כמו כרטיס אשראי. אם הוא נמצא בקוד של האתר, כל מי שנכנס יכול להעתיק אותו, ואתם משלמים על מה שהוא עושה איתו. המקום של מפתחות כאלה הוא רק בשרת.</p>
+    <div class="prompt">
+      <div class="prompt-bar"><span class="plabel">ההוראה לקלוד</span><button class="copy" type="button" id="copy-1" data-key="1" data-label="העתקה"><span class="ic-copy"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 4.5v-.5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 4v8.5A1.5 1.5 0 0 0 5 14h.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="ic-ok" hidden><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">העתקה</span></button></div>
+      <div class="ptext" data-key="1" lang="he" dir="rtl">לפני שאנחנו מעלים את האפליקציה, תמצא כל סוד שיש בפרויקט: מפתחות API, טוקנים, סיסמאות ו-connection strings (למשל <code dir="ltr">sk-...</code>, <code dir="ltr">sk_live_...</code>, <code dir="ltr">service_role</code>).
+1. תוודא שאף אחד מהם לא נמצא בקוד שרץ בדפדפן, או במשתני סביבה שנכנסים לקוד של הדפדפן (<code dir="ltr">NEXT_PUBLIC_</code>, <code dir="ltr">VITE_</code>, <code dir="ltr">EXPO_PUBLIC_</code>, <code dir="ltr">REACT_APP_</code>).
+2. תעביר את כל הסודות למשתני סביבה בשרת, ותעשה את הקריאות שצריכות אותם מ-API route או מ-edge function.
+3. תוודא ש-<code dir="ltr">.env</code> נמצא ב-<code dir="ltr">.gitignore</code>, ותוסיף קובץ <code dir="ltr">.env.example</code> עם ערכים לדוגמה.
+4. תחפש מפתחות שנשארו בקוד של ה-build שעולה לאוויר.
+לפני שאתה משנה משהו, תראה לי רשימה של מה מצאת ואיפה.</div><div class="ptext" data-key="1" lang="en" dir="ltr" hidden>Before we launch, find every secret in this project: API keys, tokens, passwords and connection strings (for example <code dir="ltr">sk-...</code>, <code dir="ltr">sk_live_...</code>, <code dir="ltr">service_role</code>).
+1. Make sure none of them is in code that runs in the browser, or in env vars that get bundled into it (<code dir="ltr">NEXT_PUBLIC_</code>, <code dir="ltr">VITE_</code>, <code dir="ltr">EXPO_PUBLIC_</code>, <code dir="ltr">REACT_APP_</code>).
+2. Move every secret to server-side env vars, and make the calls that need them from an API route or an edge function.
+3. Make sure <code dir="ltr">.env</code> is in <code dir="ltr">.gitignore</code>, and add a <code dir="ltr">.env.example</code> file with placeholder values.
+4. Search the production build for any key that's left.
+Before you change anything, show me a list of what you found and where.</div>
+    </div>
+    <p class="check"><span class="ck">איך בודקים</span> פותחים את האתר במחשב, לוחצים <bdi>F12</bdi>, ומחפשים בלשונית <bdi>Sources</bdi> את <code>sk-</code> ואת <code>secret</code>. לא אמור להופיע שום מפתח סודי.</p>
+  </article>
+  <article class="tip" id="tip-2" aria-labelledby="tip-2-h">
+    <header class="tip-head">
+      <span class="num" aria-hidden="true">02</span>
+      <div class="tip-titles">
+        <h2 id="tip-2-h">לנקות את ההיסטוריה</h2>
+        <p class="en"><bdi lang="en">Purge Git secrets</bdi></p>
+      </div>
+    </header>
+    <p class="why">מחקתם מפתח מהקוד? הוא עדיין שמור בגרסאות הקודמות בגיטהאב. בניסוי של <bdi>Comparitech</bdi>, בוטים מצאו מפתח שדלף לגיטהאב תוך דקה. אז קודם מחליפים את המפתח, ורק אחרי זה מנקים את ההיסטוריה.</p>
+    <div class="prompt">
+      <div class="prompt-bar"><span class="plabel">ההוראה לקלוד</span><button class="copy" type="button" id="copy-2" data-key="2" data-label="העתקה"><span class="ic-copy"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 4.5v-.5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 4v8.5A1.5 1.5 0 0 0 5 14h.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="ic-ok" hidden><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">העתקה</span></button></div>
+      <div class="ptext" data-key="2" lang="he" dir="rtl">תסרוק את כל היסטוריית ה-git של הריפו ותחפש סודות, לא רק בגרסה הנוכחית. תשתמש ב-gitleaks או ב-trufflehog.
+על כל סוד שתמצא:
+1. תגיד לי איזה מפתח זה, ואיפה מבטלים אותו ויוצרים חדש. קודם מחליפים, כי מפתח שעלה פעם לגיטהאב צריך להיחשב כאילו כבר דלף.
+2. אחרי שאאשר שהמפתחות החדשים במקום, תמחק את הישנים מההיסטוריה עם <code dir="ltr">git filter-repo</code>. לפני זה תעשה גיבוי של הריפו.
+3. תשאל אותי לפני כל force push.
+4. תוסיף סריקת סודות שרצה לפני כל commit, כדי שזה לא יקרה שוב.</div><div class="ptext" data-key="2" lang="en" dir="ltr" hidden>Scan this repo's entire git history for secrets, not just the current files. Use gitleaks or trufflehog.
+For every secret you find:
+1. Tell me which key it is and where I revoke it and create a new one. Rotate first, because a key that was ever pushed should be treated as leaked.
+2. Once I confirm the new keys are in place, remove the old ones from history with <code dir="ltr">git filter-repo</code>. Back up the repo first.
+3. Ask me before any force push.
+4. Add a secret scan that runs before every commit, so this can't happen again.</div>
+    </div>
+    <p class="check"><span class="ck">איך בודקים</span> מריצים שוב את הסריקה על כל ההיסטוריה. צריך לצאת 0 ממצאים, והמפתחות הישנים צריכים להיות מבוטלים אצל הספק.</p>
+  </article>
+  <article class="tip" id="tip-3" aria-labelledby="tip-3-h">
+    <header class="tip-head">
+      <span class="num" aria-hidden="true">03</span>
+      <div class="tip-titles">
+        <h2 id="tip-3-h">רק המפתח הציבורי</h2>
+        <p class="en"><bdi lang="en">Use public DB key</bdi></p>
+      </div>
+    </header>
+    <p class="why">בסופבייס יש שני סוגים של מפתחות. הציבורי (<bdi>publishable</bdi>, או <bdi>anon</bdi> בגרסה הישנה) מותר שיהיה באתר. הסודי (<bdi>secret</bdi>, או <bdi>service_role</bdi>) עוקף את כל ההגנות. אם הוא מגיע לאתר, כל אחד יכול למחוק לכם הכל.</p>
+    <div class="prompt">
+      <div class="prompt-bar"><span class="plabel">ההוראה לקלוד</span><button class="copy" type="button" id="copy-3" data-key="3" data-label="העתקה"><span class="ic-copy"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 4.5v-.5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 4v8.5A1.5 1.5 0 0 0 5 14h.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="ic-ok" hidden><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">העתקה</span></button></div>
+      <div class="ptext" data-key="3" lang="he" dir="rtl">תבדוק אילו מפתחות של מסד הנתונים מגיעים לדפדפן. שם מותר רק המפתח הציבורי (בסופבייס: <code dir="ltr">anon</code> או <code dir="ltr">sb_publishable_...</code>).
+המפתח הסודי (<code dir="ltr">service_role</code> או <code dir="ltr">sb_secret_...</code>) עוקף את ה-Row Level Security, אז הוא חייב להיות רק בשרת: לא בקוד של האתר ולא במשתנה סביבה ציבורי.
+אם המפתח הסודי הגיע פעם לדפדפן או לגיטהאב, תגיד לי להחליף אותו, ותעביר כל פעולה שצריכה אותו לפונקציה בשרת שבודקת קודם מי המשתמש ומה מותר לו.</div><div class="ptext" data-key="3" lang="en" dir="ltr" hidden>Check which database keys reach the browser. Only the public key is allowed there (in Supabase: the <code dir="ltr">anon</code> or <code dir="ltr">sb_publishable_...</code> key).
+The secret key (<code dir="ltr">service_role</code> or <code dir="ltr">sb_secret_...</code>) bypasses Row Level Security, so it must stay on the server: never in client code and never in a public env var.
+If the secret key ever reached the browser or GitHub, tell me to rotate it, and move every operation that needs it into a server function that first checks who the user is and what they're allowed to do.</div>
+    </div>
+    <p class="check"><span class="ck">איך בודקים</span> לוחצים <bdi>F12</bdi>, פותחים את <bdi>Network</bdi>, בוחרים בקשה לסופבייס ומסתכלים על הכותרת <code>apikey</code>. היא צריכה להתחיל ב-<code>sb_publishable_</code>, או להיות מפתח ה-<bdi>anon</bdi> מהדשבורד.</p>
+  </article>
+  <article class="tip" id="tip-4" aria-labelledby="tip-4-h">
+    <header class="tip-head">
+      <span class="num" aria-hidden="true">04</span>
+      <div class="tip-titles">
+        <h2 id="tip-4-h">להפעיל RLS</h2>
+        <p class="en"><bdi lang="en">Enable row-level security</bdi></p>
+      </div>
+    </header>
+    <p class="why"><bdi>RLS</bdi> זה מה שדואג שכל משתמש יראה רק את המידע שלו. בלי זה, גם המפתח הציבורי פותח הכל. ככה דלפו מיליון וחצי מפתחות <bdi>API</bdi> במולטבוק.</p>
+    <div class="prompt">
+      <div class="prompt-bar"><span class="plabel">ההוראה לקלוד</span><button class="copy" type="button" id="copy-4" data-key="4" data-label="העתקה"><span class="ic-copy"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 4.5v-.5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 4v8.5A1.5 1.5 0 0 0 5 14h.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="ic-ok" hidden><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">העתקה</span></button></div>
+      <div class="ptext" data-key="4" lang="he" dir="rtl">תפעיל Row Level Security על כל טבלה בסכמה <code dir="ltr">public</code>, ותכתוב policies כך שכל משתמש יוכל לקרוא ולשנות רק את השורות שלו (למשל <code dir="ltr">auth.uid() = user_id</code>).
+כללים:
+- בלי <code dir="ltr">using (true)</code> או <code dir="ltr">with check (true)</code> על insert, update או delete.
+- מידע שבאמת ציבורי מקבל policy של קריאה בלבד, וזהו.
+- פעולות של אדמין רצות בשרת, לא מהדפדפן.
+אחרי זה תוכיח שזה עובד: תנסה לקרוא ולשנות שורות של משתמש אחר, פעם בלי להתחבר ופעם מחובר כמשתמש אחר. כל ניסיון צריך לחזור ריק או להיחסם. תראה לי את התוצאות לכל טבלה.</div><div class="ptext" data-key="4" lang="en" dir="ltr" hidden>Turn on Row Level Security for every table in the <code dir="ltr">public</code> schema, and write policies so each user can only read and change their own rows (for example <code dir="ltr">auth.uid() = user_id</code>).
+Rules:
+- No <code dir="ltr">using (true)</code> or <code dir="ltr">with check (true)</code> on insert, update or delete.
+- Data that's really public gets a read-only policy, and nothing more.
+- Admin actions run on the server, not from the browser.
+Then prove it works: try to read and change another user's rows, once with no login and once signed in as a different user. Every attempt should come back empty or be blocked. Show me the results for each table.</div>
+    </div>
+    <p class="check"><span class="ck">איך בודקים</span> בדשבורד של סופבייס פותחים את <bdi class="nw">Security Advisor</bdi>. לא אמורה להופיע אף אזהרה על <bdi>RLS</bdi>.</p>
+  </article>
+  <article class="tip" id="tip-5" aria-labelledby="tip-5-h">
+    <header class="tip-head">
+      <span class="num" aria-hidden="true">05</span>
+      <div class="tip-titles">
+        <h2 id="tip-5-h">להצפין מידע רגיש</h2>
+        <p class="en"><bdi lang="en">Encrypt sensitive data</bdi></p>
+      </div>
+    </header>
+    <p class="why">תעודות זהות, טלפונים, הודעות פרטיות. אם מישהו בכל זאת נכנס למסד הנתונים, שיראה ג׳יבריש ולא את המידע. במולטבוק ההודעות הפרטיות נשמרו בלי הצפנה.</p><p class="note">סיסמאות זה סיפור אחר. להן עושים <bdi>hash</bdi> ולא הצפנה, ועל זה נדבר בחלק 2.</p>
+    <div class="prompt">
+      <div class="prompt-bar"><span class="plabel">ההוראה לקלוד</span><button class="copy" type="button" id="copy-5" data-key="5" data-label="העתקה"><span class="ic-copy"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 4.5v-.5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 4v8.5A1.5 1.5 0 0 0 5 14h.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="ic-ok" hidden><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">העתקה</span></button></div>
+      <div class="ptext" data-key="5" lang="he" dir="rtl">תמצא כל שדה ששומר מידע אישי רגיש: תעודות זהות, טלפונים, כתובות, הודעות פרטיות, פרטי בריאות או תשלום, וטוקנים של שירותים אחרים.
+1. תצפין את השדות האלה באפליקציה לפני שהם נשמרים, עם AES-256-GCM ו-IV אקראי לכל ערך.
+2. תשמור את מפתח ההצפנה כסוד בשרת (משתנה סביבה או secret manager), אף פעם לא במסד הנתונים, בריפו או בדפדפן.
+3. תוודא שהערכים האלה לא מופיעים בלוגים, בהודעות שגיאה או בכלי אנליטיקס.
+4. תוודא שכל התקשורת עוברת רק ב-HTTPS.
+אם צריך לחפש לפי אחד השדות, תשמור לידו hash עם מפתח (HMAC) בשביל החיפוש. את השמירה של הסיסמאות לא משנים בשלב הזה.
+לפני שאתה מריץ משהו, תכתוב תוכנית מעבר לשורות שכבר קיימות ותראה לי אותה.</div><div class="ptext" data-key="5" lang="en" dir="ltr" hidden>Find every field that stores sensitive personal data: ID numbers, phone numbers, addresses, private messages, health or payment details, and tokens for other services.
+1. Encrypt these fields in the app before they're saved, with AES-256-GCM and a random IV for every value.
+2. Keep the encryption key as a server-side secret (env var or secret manager), never in the database, the repo or the browser.
+3. Make sure these values never show up in logs, error messages or analytics.
+4. Make sure all traffic goes over HTTPS only.
+If we need to search by one of these fields, store a keyed hash (HMAC) next to it for lookups. Don't change how passwords are stored in this step.
+Before you run anything, write a migration plan for the existing rows and show it to me.</div>
+    </div>
+    <p class="check"><span class="ck">איך בודקים</span> פותחים את הטבלה בדשבורד. בשדות הרגישים צריך לראות ג׳יבריש, לא תעודת זהות או מספר טלפון.</p>
+  </article>
+  </div>
+
+  <section class="all" id="all" aria-labelledby="all-h">
+    <div class="all-head"><h2 id="all-h">כל החמש בהודעה אחת</h2><button class="copy copy-lg" type="button" id="copy-all" data-key="all" data-label="העתקת כל החמש"><span class="ic-copy"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 4.5v-.5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 4v8.5A1.5 1.5 0 0 0 5 14h.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="ic-ok" hidden><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">העתקת כל החמש</span></button></div>
+    <p>גרסה מקוצרת של כל ההוראות. <bdi lang="en">Claude</bdi> יעבור עליהן לפי הסדר, ויבקש אישור לפני כל דבר שאי אפשר להחזיר.</p>
+    <details id="all-text"><summary>הצגת הטקסט המלא</summary><div class="ptext" data-key="all" lang="he" dir="rtl">אנחנו עומדים להעלות את האפליקציה. תעבוד כמו מהנדס אבטחה בכיר, ותבדוק את הפרויקט ב-5 דברים, אחד אחרי השני:
+1. מפתחות וסודות: אף אחד לא בקוד של הדפדפן או במשתני סביבה ציבוריים (<code dir="ltr">NEXT_PUBLIC_</code>, <code dir="ltr">VITE_</code> וכו'). כולם בשרת, ו-<code dir="ltr">.env</code> נמצא ב-<code dir="ltr">.gitignore</code>.
+2. היסטוריית git: תסרוק את כל ההיסטוריה עם gitleaks או trufflehog, ותגיד לי אילו מפתחות להחליף. אחרי שאחליף, תנקה את ההיסטוריה עם <code dir="ltr">git filter-repo</code> (קודם גיבוי, ותשאל לפני force push), ותוסיף סריקה לפני כל commit.
+3. מפתחות של מסד הנתונים: בדפדפן רק המפתח הציבורי (<code dir="ltr">anon</code> או <code dir="ltr">sb_publishable_...</code>). המפתח הסודי (<code dir="ltr">service_role</code> או <code dir="ltr">sb_secret_...</code>) רק בשרת.
+4. Row Level Security על כל טבלה, עם policies שכל משתמש רואה ומשנה רק את השורות שלו. בלי <code dir="ltr">using (true)</code> על כתיבה. תוכיח את זה: תנסה לקרוא נתונים של משתמש אחר עם המפתח הציבורי.
+5. שדות רגישים (תעודות זהות, טלפונים, הודעות פרטיות) מוצפנים עם AES-256-GCM לפני השמירה, המפתח שמור בשרת, ושום דבר מהם לא נכתב ללוגים.
+על כל אחד: תראה לי מה מצאת, תתקן, ותראה איך בדקת. לפני כל דבר שאי אפשר להחזיר אחורה, תשאל אותי.</div><div class="ptext" data-key="all" lang="en" dir="ltr" hidden>We're about to launch this app. Work like a senior security engineer and check the project for these 5 things, one at a time:
+1. Keys and secrets: none in browser code or public env vars (<code dir="ltr">NEXT_PUBLIC_</code>, <code dir="ltr">VITE_</code>, etc.). All of them on the server, and <code dir="ltr">.env</code> in <code dir="ltr">.gitignore</code>.
+2. Git history: scan all of it with gitleaks or trufflehog and tell me which keys to rotate. After I rotate them, clean the history with <code dir="ltr">git filter-repo</code> (back up first, ask before any force push), and add a scan that runs before every commit.
+3. Database keys: only the public key in the browser (<code dir="ltr">anon</code> or <code dir="ltr">sb_publishable_...</code>). The secret key (<code dir="ltr">service_role</code> or <code dir="ltr">sb_secret_...</code>) only on the server.
+4. Row Level Security on every table, with policies so each user only sees and changes their own rows. No <code dir="ltr">using (true)</code> on writes. Prove it: try to read another user's data with the public key.
+5. Sensitive fields (ID numbers, phone numbers, private messages) encrypted with AES-256-GCM before they're saved, the key kept on the server, and none of them written to logs.
+For each one: show me what you found, fix it, and show me how you checked it. Ask me before anything that can't be undone.</div></details>
+  </section>
+
+  <section class="next" aria-labelledby="next-h">
+    <p class="eyebrow" id="next-h">בחלק 2 · עוד 5 דברים</p>
+    <ol class="next-list"><li><span class="nn">06</span><span class="nt">בדיקת הרשאות בשרת</span><bdi class="ne" lang="en">Enforce server-side auth</bdi></li><li><span class="nn">07</span><span class="nt">לנעול גישה לרשומות</span><bdi class="ne" lang="en">Lock record access</bdi></li><li><span class="nn">08</span><span class="nt">לחסום שינוי של שדות</span><bdi class="ne" lang="en">Block field tampering</bdi></li><li><span class="nn">09</span><span class="nt">קוקיז מאובטחים לסשן</span><bdi class="ne" lang="en">Secure session cookies</bdi></li><li><span class="nn">10</span><span class="nt">hash לסיסמאות</span><bdi class="ne" lang="en">Hash passwords</bdi></li></ol>
+    <a class="follow" href="https://www.instagram.com/devloops_il/" target="_blank" rel="noopener noreferrer">עקבו אחרי <bdi lang="en">@devloops_il</bdi> כדי לקבל את חלק 2</a>
+  </section>
+
+  <section class="sources" aria-labelledby="src-h">
+    <h3 id="src-h">מקורות</h3>
+    <ul><li><a href="https://www.wiz.io/blog/exposed-moltbook-database-reveals-millions-of-api-keys" target="_blank" rel="noopener noreferrer"><bdi class="sn" lang="en">Wiz</bdi><span class="st">מסד הנתונים החשוף של מולטבוק, פברואר 2026</span></a></li><li><a href="https://www.comparitech.com/blog/information-security/github-honeypot/" target="_blank" rel="noopener noreferrer"><bdi class="sn" lang="en">Comparitech</bdi><span class="st">ניסוי ה-honeypot: מפתחות שדלפו לגיטהאב</span></a></li><li><a href="https://supabase.com/docs/guides/api/api-keys" target="_blank" rel="noopener noreferrer"><bdi class="sn" lang="en">Supabase</bdi><span class="st">התיעוד על מפתחות API</span></a></li><li><a href="https://supabase.com/docs/guides/database/postgres/row-level-security" target="_blank" rel="noopener noreferrer"><bdi class="sn" lang="en">Supabase</bdi><span class="st">התיעוד על Row Level Security</span></a></li><li><a href="https://x.com/leojr94_/status/1901560276488511759" target="_blank" rel="noopener noreferrer"><bdi class="sn" lang="en">X</bdi><span class="st">הציוץ של ‎@leojr94_‎, מרץ 2025</span></a></li></ul>
+  </section>
+
+  <footer class="foot">
+    <p>זה צ׳קליסט בסיסי לפני שמעלים, לא בדיקת אבטחה מלאה. אם האפליקציה שומרת מידע רגיש או עובדת עם תשלומים, כדאי שגם איש אבטחה יעבור עליה.</p>
+    <p>DevLoops · AI בעברית</p>
+  </footer>
+</main>
+<div class="toast" id="toast" hidden><span></span></div>
+<div class="sr" id="live" aria-live="polite"></div>
+<script type="application/json" id="prompts">{"1": {"he": "לפני שאנחנו מעלים את האפליקציה, תמצא כל סוד שיש בפרויקט: מפתחות API, טוקנים, סיסמאות ו-connection strings (למשל `sk-...`, `sk_live_...`, `service_role`).\n1. תוודא שאף אחד מהם לא נמצא בקוד שרץ בדפדפן, או במשתני סביבה שנכנסים לקוד של הדפדפן (`NEXT_PUBLIC_`, `VITE_`, `EXPO_PUBLIC_`, `REACT_APP_`).\n2. תעביר את כל הסודות למשתני סביבה בשרת, ותעשה את הקריאות שצריכות אותם מ-API route או מ-edge function.\n3. תוודא ש-`.env` נמצא ב-`.gitignore`, ותוסיף קובץ `.env.example` עם ערכים לדוגמה.\n4. תחפש מפתחות שנשארו בקוד של ה-build שעולה לאוויר.\nלפני שאתה משנה משהו, תראה לי רשימה של מה מצאת ואיפה.", "en": "Before we launch, find every secret in this project: API keys, tokens, passwords and connection strings (for example `sk-...`, `sk_live_...`, `service_role`).\n1. Make sure none of them is in code that runs in the browser, or in env vars that get bundled into it (`NEXT_PUBLIC_`, `VITE_`, `EXPO_PUBLIC_`, `REACT_APP_`).\n2. Move every secret to server-side env vars, and make the calls that need them from an API route or an edge function.\n3. Make sure `.env` is in `.gitignore`, and add a `.env.example` file with placeholder values.\n4. Search the production build for any key that's left.\nBefore you change anything, show me a list of what you found and where."}, "2": {"he": "תסרוק את כל היסטוריית ה-git של הריפו ותחפש סודות, לא רק בגרסה הנוכחית. תשתמש ב-gitleaks או ב-trufflehog.\nעל כל סוד שתמצא:\n1. תגיד לי איזה מפתח זה, ואיפה מבטלים אותו ויוצרים חדש. קודם מחליפים, כי מפתח שעלה פעם לגיטהאב צריך להיחשב כאילו כבר דלף.\n2. אחרי שאאשר שהמפתחות החדשים במקום, תמחק את הישנים מההיסטוריה עם `git filter-repo`. לפני זה תעשה גיבוי של הריפו.\n3. תשאל אותי לפני כל force push.\n4. תוסיף סריקת סודות שרצה לפני כל commit, כדי שזה לא יקרה שוב.", "en": "Scan this repo's entire git history for secrets, not just the current files. Use gitleaks or trufflehog.\nFor every secret you find:\n1. Tell me which key it is and where I revoke it and create a new one. Rotate first, because a key that was ever pushed should be treated as leaked.\n2. Once I confirm the new keys are in place, remove the old ones from history with `git filter-repo`. Back up the repo first.\n3. Ask me before any force push.\n4. Add a secret scan that runs before every commit, so this can't happen again."}, "3": {"he": "תבדוק אילו מפתחות של מסד הנתונים מגיעים לדפדפן. שם מותר רק המפתח הציבורי (בסופבייס: `anon` או `sb_publishable_...`).\nהמפתח הסודי (`service_role` או `sb_secret_...`) עוקף את ה-Row Level Security, אז הוא חייב להיות רק בשרת: לא בקוד של האתר ולא במשתנה סביבה ציבורי.\nאם המפתח הסודי הגיע פעם לדפדפן או לגיטהאב, תגיד לי להחליף אותו, ותעביר כל פעולה שצריכה אותו לפונקציה בשרת שבודקת קודם מי המשתמש ומה מותר לו.", "en": "Check which database keys reach the browser. Only the public key is allowed there (in Supabase: the `anon` or `sb_publishable_...` key).\nThe secret key (`service_role` or `sb_secret_...`) bypasses Row Level Security, so it must stay on the server: never in client code and never in a public env var.\nIf the secret key ever reached the browser or GitHub, tell me to rotate it, and move every operation that needs it into a server function that first checks who the user is and what they're allowed to do."}, "4": {"he": "תפעיל Row Level Security על כל טבלה בסכמה `public`, ותכתוב policies כך שכל משתמש יוכל לקרוא ולשנות רק את השורות שלו (למשל `auth.uid() = user_id`).\nכללים:\n- בלי `using (true)` או `with check (true)` על insert, update או delete.\n- מידע שבאמת ציבורי מקבל policy של קריאה בלבד, וזהו.\n- פעולות של אדמין רצות בשרת, לא מהדפדפן.\nאחרי זה תוכיח שזה עובד: תנסה לקרוא ולשנות שורות של משתמש אחר, פעם בלי להתחבר ופעם מחובר כמשתמש אחר. כל ניסיון צריך לחזור ריק או להיחסם. תראה לי את התוצאות לכל טבלה.", "en": "Turn on Row Level Security for every table in the `public` schema, and write policies so each user can only read and change their own rows (for example `auth.uid() = user_id`).\nRules:\n- No `using (true)` or `with check (true)` on insert, update or delete.\n- Data that's really public gets a read-only policy, and nothing more.\n- Admin actions run on the server, not from the browser.\nThen prove it works: try to read and change another user's rows, once with no login and once signed in as a different user. Every attempt should come back empty or be blocked. Show me the results for each table."}, "5": {"he": "תמצא כל שדה ששומר מידע אישי רגיש: תעודות זהות, טלפונים, כתובות, הודעות פרטיות, פרטי בריאות או תשלום, וטוקנים של שירותים אחרים.\n1. תצפין את השדות האלה באפליקציה לפני שהם נשמרים, עם AES-256-GCM ו-IV אקראי לכל ערך.\n2. תשמור את מפתח ההצפנה כסוד בשרת (משתנה סביבה או secret manager), אף פעם לא במסד הנתונים, בריפו או בדפדפן.\n3. תוודא שהערכים האלה לא מופיעים בלוגים, בהודעות שגיאה או בכלי אנליטיקס.\n4. תוודא שכל התקשורת עוברת רק ב-HTTPS.\nאם צריך לחפש לפי אחד השדות, תשמור לידו hash עם מפתח (HMAC) בשביל החיפוש. את השמירה של הסיסמאות לא משנים בשלב הזה.\nלפני שאתה מריץ משהו, תכתוב תוכנית מעבר לשורות שכבר קיימות ותראה לי אותה.", "en": "Find every field that stores sensitive personal data: ID numbers, phone numbers, addresses, private messages, health or payment details, and tokens for other services.\n1. Encrypt these fields in the app before they're saved, with AES-256-GCM and a random IV for every value.\n2. Keep the encryption key as a server-side secret (env var or secret manager), never in the database, the repo or the browser.\n3. Make sure these values never show up in logs, error messages or analytics.\n4. Make sure all traffic goes over HTTPS only.\nIf we need to search by one of these fields, store a keyed hash (HMAC) next to it for lookups. Don't change how passwords are stored in this step.\nBefore you run anything, write a migration plan for the existing rows and show it to me."}, "all": {"he": "אנחנו עומדים להעלות את האפליקציה. תעבוד כמו מהנדס אבטחה בכיר, ותבדוק את הפרויקט ב-5 דברים, אחד אחרי השני:\n1. מפתחות וסודות: אף אחד לא בקוד של הדפדפן או במשתני סביבה ציבוריים (`NEXT_PUBLIC_`, `VITE_` וכו'). כולם בשרת, ו-`.env` נמצא ב-`.gitignore`.\n2. היסטוריית git: תסרוק את כל ההיסטוריה עם gitleaks או trufflehog, ותגיד לי אילו מפתחות להחליף. אחרי שאחליף, תנקה את ההיסטוריה עם `git filter-repo` (קודם גיבוי, ותשאל לפני force push), ותוסיף סריקה לפני כל commit.\n3. מפתחות של מסד הנתונים: בדפדפן רק המפתח הציבורי (`anon` או `sb_publishable_...`). המפתח הסודי (`service_role` או `sb_secret_...`) רק בשרת.\n4. Row Level Security על כל טבלה, עם policies שכל משתמש רואה ומשנה רק את השורות שלו. בלי `using (true)` על כתיבה. תוכיח את זה: תנסה לקרוא נתונים של משתמש אחר עם המפתח הציבורי.\n5. שדות רגישים (תעודות זהות, טלפונים, הודעות פרטיות) מוצפנים עם AES-256-GCM לפני השמירה, המפתח שמור בשרת, ושום דבר מהם לא נכתב ללוגים.\nעל כל אחד: תראה לי מה מצאת, תתקן, ותראה איך בדקת. לפני כל דבר שאי אפשר להחזיר אחורה, תשאל אותי.", "en": "We're about to launch this app. Work like a senior security engineer and check the project for these 5 things, one at a time:\n1. Keys and secrets: none in browser code or public env vars (`NEXT_PUBLIC_`, `VITE_`, etc.). All of them on the server, and `.env` in `.gitignore`.\n2. Git history: scan all of it with gitleaks or trufflehog and tell me which keys to rotate. After I rotate them, clean the history with `git filter-repo` (back up first, ask before any force push), and add a scan that runs before every commit.\n3. Database keys: only the public key in the browser (`anon` or `sb_publishable_...`). The secret key (`service_role` or `sb_secret_...`) only on the server.\n4. Row Level Security on every table, with policies so each user only sees and changes their own rows. No `using (true)` on writes. Prove it: try to read another user's data with the public key.\n5. Sensitive fields (ID numbers, phone numbers, private messages) encrypted with AES-256-GCM before they're saved, the key kept on the server, and none of them written to logs.\nFor each one: show me what you found, fix it, and show me how you checked it. Ask me before anything that can't be undone."}}</script>
+<script>
+(function(){
+  var P = JSON.parse(document.getElementById('prompts').textContent);
+  var lang = 'he';
+  try { var s = localStorage.getItem('dl-claude5-lang'); if (s === 'he' || s === 'en') lang = s; } catch (e) {}
+  var toastBox = document.getElementById('toast'), live = document.getElementById('live'), tt;
+  function setLang(l){
+    lang = l;
+    document.querySelectorAll('.ptext').forEach(function(el){ el.hidden = el.lang !== l; });
+    document.querySelectorAll('.seg button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.lang === l)); });
+    try { localStorage.setItem('dl-claude5-lang', l); } catch (e) {}
+  }
+  function toast(msg){
+    toastBox.querySelector('span').textContent = msg; toastBox.hidden = false; live.textContent = msg;
+    clearTimeout(tt); tt = setTimeout(function(){ toastBox.hidden = true; }, 4200);
+  }
+  function legacyCopy(text){
+    var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.opacity = '0'; document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0, text.length); var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta); return ok;
+  }
+  function selectVisible(key){
+    var el = document.querySelector('.ptext[data-key="' + key + '"]:not([hidden])'); if (!el) return;
+    var d = el.closest('details'); if (d) d.open = true;
+    var r = document.createRange(); r.selectNodeContents(el); var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    el.scrollIntoView({block: 'nearest'});
+  }
+  function done(btn){
+    btn.classList.add('done'); btn.querySelector('.ic-copy').hidden = true; btn.querySelector('.ic-ok').hidden = false;
+    btn.querySelector('.lbl').textContent = 'הועתק'; live.textContent = 'ההוראה הועתקה. עכשיו מדביקים אותה ב-Claude.';
+    setTimeout(function(){ btn.classList.remove('done'); btn.querySelector('.ic-copy').hidden = false; btn.querySelector('.ic-ok').hidden = true; btn.querySelector('.lbl').textContent = btn.dataset.label; }, 2200);
+  }
+  function failed(key){ selectVisible(key); toast('ההעתקה האוטומטית לא עבדה כאן. סימנו לכם את הטקסט, אפשר להעתיק אותו ידנית.'); }
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var key = btn.dataset.key, text = P[key][lang];
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function(){ done(btn); }, function(){ if (legacyCopy(text)) done(btn); else failed(key); });
+      } else if (legacyCopy(text)) done(btn); else failed(key);
+    });
+  });
+  document.querySelectorAll('.seg button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.lang); }); });
+  if (lang !== 'he') setLang(lang);
+})();
+</script>
+
+</body>
+</html>
