@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>המדריך ל-Gemini 4 · DevLoops</title>
+<meta name="description" content="איך משתמשים ב-Gemini 4 Argon היום, איזה מודל לאיזו משימה, וכמה זה עולה. מספרים אמיתיים, בעברית.">
+<meta property="og:title" content="המדריך ל-Gemini 4 · DevLoops">
+<meta property="og:description" content="איך משתמשים בארגון, איזה מודל לאיזו משימה, וכמה זה עולה.">
+<meta property="og:type" content="article">
+<meta property="og:locale" content="he_IL">
+<meta name="theme-color" content="#EDF2FB">
+<style>
+:root{--bg:#EDF2FB;--card:#FFFFFF;--well:#F3F7FE;--ink:#0E1A2B;--mute:#55657F;--line:rgba(14,26,43,.11);--line2:rgba(14,26,43,.2);--acc:#1F5BFF;--acc-t:#123BB0;--tint:rgba(31,91,255,.09);--warn:#FFF3D1;--warn-t:#6B4E00;--grid:rgba(31,91,255,.06);--f-d:"Frank Ruhl Libre","David Libre","Times New Roman",serif;--f-u:"Rubik","Assistant","Segoe UI",system-ui,-apple-system,Arial,sans-serif;--f-m:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color-scheme:light}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background-color:var(--bg);color:var(--ink);font:400 17px/1.65 var(--f-u);background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:72px 72px}
+.page{max-width:680px;margin:0 auto;padding:28px max(16px,env(safe-area-inset-right,0px)) 56px max(16px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:22px}
+h1,h2,p,ul,ol{margin:0}
+h1{font:900 42px/1.12 var(--f-d);letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--acc)}
+h2{font:900 26px/1.2 var(--f-d)}
+.kick{font-weight:800;font-size:14px;color:var(--acc-t)}
+.lead{font-size:18px;color:var(--mute)}
+.stamp{font-size:14px;color:var(--mute)}
+.card{background:var(--card);border-radius:20px;padding:20px 18px;box-shadow:inset 0 0 0 1px var(--line),0 14px 30px -18px rgba(24,52,120,.28);display:flex;flex-direction:column;gap:12px}
+.n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:10px;background:var(--acc);color:#fff;font-weight:900;font-size:16px;margin-inline-end:8px;vertical-align:2px}
+.warn{background:var(--warn);color:var(--warn-t);border-radius:14px;padding:12px 14px;font-weight:700;font-size:16px}
+ul.rows{list-style:none;padding:0;display:flex;flex-direction:column;gap:10px}
+ul.rows li{background:var(--well);border-radius:14px;padding:12px 14px}
+ul.rows b{display:block;font-weight:800}
+.mut{color:var(--mute);font-size:15px}
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-inline:-4px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{padding:9px 4px;text-align:center;border-bottom:1px solid var(--line)}
+th{font-weight:800;font-size:13px;color:var(--mute)}
+th:first-child,td:first-child{text-align:right;font-weight:700}
+td .mut{display:block;font-size:12px;font-weight:500}
+td.win{color:var(--acc-t);font-weight:900;background:var(--tint);border-radius:8px}
+bdi{unicode-bidi:isolate}
+code{font-family:var(--f-m);font-size:.86em;background:var(--well);padding:.1em .4em;border-radius:6px;white-space:nowrap}
+.well{position:relative;background:var(--well);border-radius:14px;padding:44px 14px 14px;direction:ltr;text-align:left;font:13.5px/1.55 var(--f-m);white-space:pre-wrap;word-break:break-word;box-shadow:inset 0 0 0 1px var(--line)}
+button.copy{position:absolute;top:8px;left:8px;border:0;border-radius:10px;background:var(--acc);color:#fff;font:800 14px var(--f-u);padding:7px 14px;min-height:32px;cursor:pointer}
+a{color:var(--acc-t)}
+:focus-visible{outline:2px solid var(--acc);outline-offset:3px;border-radius:6px}
+ol.src{padding-inline-start:20px;display:flex;flex-direction:column;gap:6px;font-size:15px}
+footer{font-size:14px;color:var(--mute);text-align:center}
+@media (max-width:380px){h1{font-size:36px}}
+</style>
+</head>
+<body>
+<main class="page">
+  <header style="display:flex;flex-direction:column;gap:8px">
+    <p class="kick">DevLoops · @devloops_il</p>
+    <h1>המדריך ל-<em><bdi>Gemini 4</bdi></em></h1>
+    <p class="lead">איך משתמשים בזה היום, איזה מודל לאיזו משימה, וכמה זה באמת עולה.</p>
+    <p class="stamp">נכון ל-2 בנובמבר 2026</p>
+  </header>
+
+  <div class="warn">שעון: מחיר ההיכרות של ארגון ב-<bdi>API</bdi> נגמר ב-30 בנובמבר. מ-1 בדצמבר הוא מוכפל.</div>
+
+  <section class="card">
+    <h2><span class="n">1</span>מה אפשר להשתמש בו בכלל</h2>
+    <ul class="rows">
+      <li><b><bdi>Gemini 4 Argon</bdi>: פתוח</b><span class="mut">יצא לציבור ב-13 באוקטובר, למשלמים בלבד.</span></li>
+      <li><b><bdi>Gemini 4 Carbon</bdi>: עדיין לא</b><span class="mut">זה המודל שבראש הדירוגים, אבל הוא נפתח קודם למגיני סייבר נבחרים. גוגל לא נתנה תאריך לשאר.</span></li>
+      <li><b>בחינם: <bdi>Gemini 3.8 Flash</bdi></b><span class="mut">לארגון אין מסלול חינמי ב-<bdi>API</bdi>. אם רוצים לנסות בלי לשלם, זה מודל ה-<bdi>Flash</bdi> הכי חזק של גוגל, והוא במסלול החינמי.</span></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2><span class="n">2</span>איך נכנסים לארגון היום</h2>
+    <ul class="rows">
+      <li><b>הכי פשוט: אפליקציית <bdi>Gemini</bdi></b><span class="mut">למנויי <bdi>Google AI Pro</bdi> או <bdi>Ultra</bdi>. בוחרים את המודל ומתחילים לדבר.</span></li>
+      <li><b>לבונים: <bdi>Google AI Studio</bdi> וה-<bdi>API</bdi></b><span class="mut">פותחים פרויקט עם חיוב, יוצרים מפתח, ומשתמשים במזהה <code dir="ltr">gemini-4-argon</code>.</span></li>
+      <li><b>לסוכני קוד: <bdi>Antigravity</bdi></b><span class="mut">למשתמשים פרטיים במסלול <bdi>Ultra</bdi>, וללקוחות ארגוניים.</span></li>
+    </ul>
+    <p class="mut">בדיקה ראשונה מהטרמינל. מחליפים את המפתח שלכם במשתנה <code dir="ltr">GEMINI_API_KEY</code>:</p>
+    <div class="well" id="snip"><button class="copy" type="button" data-t="snip-t">העתקה</button><span id="snip-t">curl "https://generativelanguage.googleapis.com/v1beta/models/gemini-4-argon:generateContent" \
+  -H "x-goog-api-key: $GEMINI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"contents":[{"parts":[{"text":"Summarize this idea in one line: a parking app for Tel Aviv"}]}]}'</span></div>
+    <p class="mut">שימו לב: קריאה כזו עולה כסף. את המפתח לא שמים בקוד של האתר.</p>
+  </section>
+
+  <section class="card">
+    <h2><span class="n">3</span>איזה מודל לאיזו משימה</h2>
+    <p class="mut">אין מודל אחד שמנצח בהכל. המספרים של ארגון מול המתחרים הם מהטבלה של גוגל עצמה, אז קחו אותם בהתאם. גבוה יותר עדיף.</p>
+    <div class="tscroll"><table>
+      <thead><tr><th scope="col">משימה</th><th scope="col"><bdi>Argon</bdi></th><th scope="col"><bdi>Opus 5.5</bdi></th><th scope="col"><bdi>GPT-6 Astra</bdi></th></tr></thead>
+      <tbody>
+        <tr><td>אוטומציות <bdi class="mut">AutomationBench</bdi></td><td class="win">51.3%</td><td>42.5%</td><td>41.4%</td></tr>
+        <tr><td>סוכן פיננסי <bdi class="mut">Vals Finance v2</bdi></td><td class="win">65.4%</td><td>58.6%</td><td>53.5%</td></tr>
+        <tr><td>עבודה משפטית <bdi class="mut">Harvey Legal Agent</bdi></td><td class="win">19.6%</td><td>3.8%</td><td>5.4%</td></tr>
+        <tr><td>הבנת וידאו ארוך <bdi class="mut">LVBench</bdi></td><td class="win">91.7%</td><td>83.7%</td><td>87.5%</td></tr>
+        <tr><td>תוכנה <bdi class="mut">DeepSWE v1.1</bdi></td><td class="win">77.9%</td><td>74.2%</td><td>74.1%</td></tr>
+        <tr><td>עבודה בטרמינל <bdi class="mut">Terminal-bench 4.0</bdi></td><td>57.4%</td><td class="win">66.4%</td><td>לא צוין</td></tr>
+        <tr><td>תוכנה קשה <bdi class="mut">FrontierSWE v2</bdi></td><td>55.0%</td><td>לא צוין</td><td class="win">65.5%</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="rows">
+      <li><b>בשורה התחתונה</b><span class="mut">אוטומציות, פיננסים, משפטים ווידאו ארוך: להתחיל מארגון. קוד בטרמינל: <bdi>Claude Opus 5.5</bdi>. משימות תוכנה קשות: לבדוק גם את <bdi>GPT-6 Astra</bdi>.</span></li>
+      <li><b>גם <bdi>Carbon</bdi> לא מוביל בקוד</b><span class="mut">ב-<bdi>Coding Agent Index</bdi> של <bdi>Artificial Analysis</bdi>: <bdi>Opus 5.5</bdi> עם 62, <bdi>Carbon</bdi> עם 59.</span></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2><span class="n">4</span>כמה זה עולה</h2>
+    <p class="mut">מחיר ב-<bdi>API</bdi> למיליון טוקנים, קלט / פלט.</p>
+    <div class="tscroll"><table>
+      <thead><tr><th scope="col">מודל</th><th scope="col">קלט</th><th scope="col">פלט</th></tr></thead>
+      <tbody>
+        <tr><td><bdi>Argon</bdi> עד 30.11</td><td class="win">$2</td><td class="win">$10</td></tr>
+        <tr><td><bdi>Argon</bdi> מ-1.12</td><td>$4</td><td>$20</td></tr>
+        <tr><td><bdi>Claude Opus 5.5</bdi></td><td>$4</td><td>$20</td></tr>
+        <tr><td><bdi>GPT-6 Astra</bdi></td><td>$10</td><td>$50</td></tr>
+      </tbody>
+    </table></div>
+    <ul class="rows">
+      <li><b>מחיר לטוקן זה לא מחיר למשימה</b><span class="mut">לפי המדידה של <bdi>Artificial Analysis</bdi> במחירון הרגיל, עלות למשימה: <bdi>GPT-6 Astra</bdi> ‏$6.25, <bdi>Argon</bdi> ‏$7.68, <bdi>Carbon</bdi> ‏$7.76, <bdi>Opus 5.5</bdi> ‏$10.04. המודל היקר לטוקן יצא שם הזול למשימה.</span></li>
+      <li><b>טיפ שחוסך כסף</b><span class="mut">קלט מ-<bdi>cache</bdi> של ארגון עולה 95% פחות. אם אתם שולחים שוב ושוב את אותו הקשר ארוך, כדאי להשתמש בזה.</span></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2><span class="n">5</span>מה לזכור לפני שמתלהבים</h2>
+    <ul class="rows">
+      <li><b>12 מתוך 18 זה מהטבלה של גוגל</b><span class="mut">ארגון ראשון ב-12 ותיקו באחד, <bdi>GPT-6 Astra</bdi> ב-3, <bdi>Opus 5.5</bdi> ב-2.</span></li>
+      <li><b>המקום הראשון ב-<bdi>Arena</bdi> היה ראשוני</b><span class="mut"><bdi>Carbon</bdi> עם 1,528, על בסיס כ-4,400 הצבעות. <bdi>Argon</bdi> עם 1,520, <bdi>Opus 5.5</bdi> עם 1,509. דירוגים זזים מהר.</span></li>
+      <li><b>המירוץ פתוח</b><span class="mut">ב-<bdi>Kalshi</bdi> ב-28 באוקטובר (<bdi>UTC</bdi>): גוגל עלתה מ-30 ל-48, וקלוד ירד מ-59 ל-45, בין 16:00 ל-19:00. ב-2 בנובמבר: גוגל 48, קלוד 40. זה שוק הימורים, לא עובדה.</span></li>
+    </ul>
+  </section>
+
+  <section class="card">
+    <h2>מקורות</h2>
+    <ol class="src">
+      <li><a href="https://ai.google.dev/gemini-api/docs/pricing" target="_blank" rel="noopener noreferrer">מחירון <bdi>Gemini API</bdi></a></li>
+      <li><a href="https://ai.google.dev/gemini-api/docs/models" target="_blank" rel="noopener noreferrer">רשימת המודלים של גוגל</a></li>
+      <li><a href="https://blog.google/innovation-and-ai/models-and-research/gemini-models/introducing-gemini-4-carbon/" target="_blank" rel="noopener noreferrer">ההכרזה של גוגל על <bdi>Carbon</bdi></a></li>
+      <li><a href="https://venturebeat.com/technology/google-unveils-gemini-4-argon-retaking-benchmark-lead-over-openai-and-anthropic-but-in-limited-release" target="_blank" rel="noopener noreferrer"><bdi>VentureBeat</bdi>: הטבלה של <bdi>Argon</bdi></a></li>
+      <li><a href="https://venturebeat.com/technology/google-makes-gemini-4-argon-broadly-available-with-limited-time-low-api-pricing-of-2-10-per-1m-token" target="_blank" rel="noopener noreferrer"><bdi>VentureBeat</bdi>: הפתיחה לציבור</a></li>
+      <li><a href="https://the-decoder.com/google-deepmind-releases-gemini-4-carbon-just-two-weeks-after-argon-with-gains-across-the-board/" target="_blank" rel="noopener noreferrer"><bdi>The Decoder</bdi>: דירוגי <bdi>Carbon</bdi> ועלות למשימה</a></li>
+      <li><a href="https://fortune.com/2026/08/10/how-stalled-models-missed-deadlines-and-staff-burnout-lead-to-the-unraveling-of-googles-deepmind/" target="_blank" rel="noopener noreferrer"><bdi>Fortune</bdi>: המשבר ב-<bdi>DeepMind</bdi></a></li>
+      <li><a href="https://kalshi.com/markets/kxllm1/yearend-top-llm/kxllm1-26dec31" target="_blank" rel="noopener noreferrer"><bdi>Kalshi</bdi>: השוק על ה-<bdi>AI</bdi> הטוב ביותר בסוף 2026</a></li>
+    </ol>
+  </section>
+
+  <footer>לא ייעוץ השקעות. מחירים וזמינות משתנים, בדקו בעמוד של גוגל לפני שמשלמים.<br>DevLoops · <a href="https://www.instagram.com/devloops_il/" target="_blank" rel="noopener noreferrer">@devloops_il</a></footer>
+</main>
+<script>
+document.querySelectorAll('button.copy').forEach(function(b){
+  b.addEventListener('click',function(){
+    var s=document.getElementById(b.dataset.t).textContent;
+    var done=function(){b.textContent='הועתק ✓';setTimeout(function(){b.textContent='העתקה'},1600)};
+    if(navigator.clipboard){navigator.clipboard.writeText(s).then(done,function(){})}
+  });
+});
+</script>
+</body>
+</html>
