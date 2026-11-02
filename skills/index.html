@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="he" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4 הסקילים ל-Claude Code</title>
+<meta name="description" content="כל הקישורים ופקודות ההתקנה מהסרטון של DevLoops.">
+<meta property="og:title" content="4 הסקילים ל-Claude Code"><meta property="og:description" content="כל הקישורים ופקודות ההתקנה מהסרטון של DevLoops."><meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@700;900&family=Rubik:wght@400;500;700&display=swap">
+<style>
+/* Layout: one RTL reading column (max 680px): masthead, how-to, five numbered instruction cards with copy wells, copy-all, part-2 teaser, sources */
+:root{
+  --bg:#121110; --card:#1D1A17; --well:#161412; --line:rgba(243,237,227,.11); --line-2:rgba(243,237,227,.2);
+  --text:#F3EDE3; --mute:#8F877C; --accent:#E2703F; --accent-text:#EE8A5D; --accent-ink:#121110; --ok:#86C08A; --ok-ink:#0F1A10;
+  --grid:rgba(243,237,227,.036); --glow:rgba(226,112,63,.13); --shadow:0 22px 44px -18px rgba(0,0,0,.7);
+  --face:#0B0A09; --face-rim:#F3EDE3; --face-eye:#FFFFFF; --code-bg:rgba(243,237,227,.07);
+  --f-display:"Frank Ruhl Libre","David Libre","Times New Roman",serif;
+  --f-ui:"Rubik","Assistant","Segoe UI",system-ui,-apple-system,Arial,sans-serif;
+  --f-mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){
+  --bg:#F4EEE3; --card:#FFFFFF; --well:#F8F4EC; --line:rgba(20,18,16,.1); --line-2:rgba(20,18,16,.2);
+  --text:#141210; --mute:#6B6359; --accent:#D9653B; --accent-text:#A84B27; --accent-ink:#141210; --ok:#2F7D46; --ok-ink:#FFFFFF;
+  --grid:rgba(20,18,16,.045); --glow:rgba(217,101,59,.12); --shadow:0 18px 36px -20px rgba(80,52,30,.35);
+  --face:#0B0A09; --face-rim:#0B0A09; --face-eye:#FFFFFF; --code-bg:rgba(20,18,16,.06); color-scheme:light;
+}}
+:root[data-theme="light"]{
+  --bg:#F4EEE3; --card:#FFFFFF; --well:#F8F4EC; --line:rgba(20,18,16,.1); --line-2:rgba(20,18,16,.2);
+  --text:#141210; --mute:#6B6359; --accent:#D9653B; --accent-text:#A84B27; --accent-ink:#141210; --ok:#2F7D46; --ok-ink:#FFFFFF;
+  --grid:rgba(20,18,16,.045); --glow:rgba(217,101,59,.12); --shadow:0 18px 36px -20px rgba(80,52,30,.35);
+  --face:#0B0A09; --face-rim:#0B0A09; --face-eye:#FFFFFF; --code-bg:rgba(20,18,16,.06); color-scheme:light;
+}
+*,*::before,*::after{box-sizing:border-box}
+body{
+  background-color:var(--bg); color:var(--text); font-family:var(--f-ui); font-size:17px; line-height:1.65;
+  background-image:radial-gradient(120% 60% at 80% -10%,var(--glow),transparent 60%),
+    linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:auto,72px 72px,72px 72px;
+  -webkit-text-size-adjust:100%;
+}
+.page{max-width:680px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px;display:flex;flex-direction:column;gap:30px}
+h1,h2,h3,p,ol,ul{margin:0}
+a{color:var(--accent-text)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+code{font-family:var(--f-mono);font-size:.84em;background:var(--code-bg);padding:.08em .38em;border-radius:5px;unicode-bidi:isolate;white-space:nowrap}
+bdi{unicode-bidi:isolate}
+.nw{white-space:nowrap}
+
+/* masthead */
+.brand{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--mute)}
+.face{width:30px;height:30px;flex:none}
+.brand b{color:var(--text);font-weight:700;font-size:15px}
+.part{margin-inline-start:auto;font-size:13px;font-weight:500;color:var(--text);border:1px solid var(--line-2);border-radius:999px;padding:3px 11px;white-space:nowrap}
+.hero{display:flex;flex-direction:column;gap:12px}
+.eyebrow{font-weight:500;font-size:15px;color:var(--accent-text)}
+h1{font-family:var(--f-display);font-weight:900;font-size:clamp(42px,11.5vw,66px);line-height:1;letter-spacing:-.01em;text-wrap:balance}
+.lead{color:var(--text);opacity:.86;max-width:34em}
+
+/* how to use */
+.how{display:flex;flex-direction:column;gap:14px;border-block:1px solid var(--line);padding-block:18px}
+.how h2{font-size:15px;font-weight:700;font-family:var(--f-ui)}
+.steps{list-style:none;padding:0;display:grid;gap:10px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start;font-size:16px;line-height:1.55;counter-increment:s}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--accent);color:var(--accent-text);font-size:13px;font-weight:700;margin-top:1px}
+.lang{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px}
+.lang-l{font-size:14px;color:var(--mute)}
+.seg{display:inline-flex;border:1px solid var(--line-2);border-radius:10px;padding:3px;gap:3px}
+.seg button{font:500 15px/1 var(--f-ui);color:var(--mute);background:transparent;border:0;border-radius:7px;padding:9px 14px;min-height:38px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--text);color:var(--bg)}
+.lang-hint{font-size:13.5px;color:var(--mute)}
+.jump{font-size:15px;font-weight:500;text-decoration:none;border-bottom:1px solid currentColor;align-self:flex-start}
+
+/* tip cards */
+.tips{display:flex;flex-direction:column;gap:22px}
+.tip{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:20px 18px 18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.tip-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;align-items:center}
+.num{font-family:var(--f-display);font-weight:900;font-size:64px;line-height:.8;color:transparent;-webkit-text-stroke:1.6px var(--accent);font-variant-numeric:lining-nums tabular-nums;padding-top:6px}
+.tip-titles{display:flex;flex-direction:column;gap:4px;min-width:0}
+h2{font-family:var(--f-display);font-weight:900;font-size:clamp(27px,7.4vw,33px);line-height:1.08;text-wrap:balance}
+.en{font-size:12.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.why{max-width:36em}
+.note{font-size:15px;color:var(--mute);max-width:36em}
+.prompt{background:var(--well);border:1px solid var(--line);border-radius:12px;overflow:hidden;min-width:0}
+.prompt-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-block:8px;padding-inline:14px 8px;border-bottom:1px solid var(--line)}
+.plabel{font-size:13.5px;font-weight:500;color:var(--mute)}
+.ptext{white-space:pre-wrap;overflow-wrap:anywhere;font-size:15.5px;line-height:1.72;padding:14px 14px 16px;text-align:start}
+.ptext[lang="en"]{font-size:15px}
+.ptext code{white-space:normal;overflow-wrap:anywhere}
+.check{font-size:15px;color:var(--text);opacity:.9;display:block}
+.ck{display:inline-block;font-weight:700;color:var(--accent-text);margin-inline-end:6px}
+
+/* copy button */
+.copy{display:inline-flex;align-items:center;gap:7px;font:500 15px/1 var(--f-ui);background:var(--accent);color:var(--accent-ink);border:0;border-radius:9px;padding:10px 14px;min-height:42px;cursor:pointer;white-space:nowrap}
+.copy .ico{width:18px;height:18px;display:block}
+.copy.done{background:var(--ok);color:var(--ok-ink)}
+@media (hover:hover){.copy:hover{filter:brightness(1.06)}}
+@media (prefers-reduced-motion:no-preference){.copy{transition:background-color .18s ease,transform .12s ease}.copy:active{transform:scale(.97)}}
+
+/* copy all */
+.all{border:1.5px solid var(--accent);border-radius:16px;padding:20px 18px;display:flex;flex-direction:column;gap:14px;background:var(--card)}
+.all-head{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px}
+.all h2{font-size:clamp(25px,6.6vw,30px)}
+.all p{font-size:16px;max-width:36em}
+.copy-lg{font-size:16px;padding:12px 16px;min-height:46px}
+details{border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-size:15px;font-weight:500;color:var(--accent-text);min-height:32px;display:flex;align-items:center}
+details .ptext{background:var(--well);border:1px solid var(--line);border-radius:12px;margin-top:10px}
+
+/* part 2 */
+.next{display:flex;flex-direction:column;gap:14px;padding-top:6px}
+.next-list{list-style:none;padding:0;display:grid;gap:2px}
+.next-list li{display:grid;grid-template-columns:36px minmax(0,1fr) auto;gap:10px;align-items:baseline;padding-block:9px;border-bottom:1px dashed var(--line-2)}
+.nn{font-family:var(--f-display);font-weight:900;font-size:20px;color:var(--mute);font-variant-numeric:tabular-nums}
+.nt{font-weight:500}
+.ne{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--mute);text-align:end}
+.follow{display:inline-block;align-self:flex-start;font-weight:700;font-size:16px;line-height:1.4;text-decoration:none;background:var(--text);color:var(--bg);border-radius:10px;padding:12px 16px}
+
+/* sources + foot */
+.sources{display:flex;flex-direction:column;gap:10px}
+.sources h3{font-size:14px;font-weight:700;color:var(--mute)}
+.sources ul{list-style:none;padding:0;display:grid;gap:8px}
+.sources a{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:10px;text-decoration:none;font-size:15px;line-height:1.5;color:var(--text)}
+.sn{font-weight:700;color:var(--accent-text)}
+.st{text-decoration:underline;text-decoration-color:var(--line-2);text-underline-offset:4px}
+.foot{font-size:13.5px;color:var(--mute);border-top:1px solid var(--line);padding-top:16px;display:flex;flex-direction:column;gap:8px}
+.toast{position:fixed;inset-inline:0;bottom:0;display:flex;justify-content:center;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));pointer-events:none;z-index:20}
+.toast span{background:var(--text);color:var(--bg);font-size:15px;font-weight:500;border-radius:10px;padding:11px 15px;box-shadow:var(--shadow);max-width:34em;text-align:center}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (max-width:480px){.next-list li{grid-template-columns:36px minmax(0,1fr)}.ne{display:none}}
+@media (max-width:380px){.num{font-size:54px}.tip{padding:18px 14px 16px}.prompt-bar{padding-inline-start:12px}}
+.toast[hidden]{display:none}</style></head><body>
+<main class="page" dir="rtl" lang="he">
+  <header class="hero">
+    <div class="brand"><svg class="face" viewBox="0 0 64 64" aria-hidden="true"><g transform="rotate(-8 32 32)"><circle cx="32" cy="32" r="29.5" fill="var(--face)" stroke="var(--face-rim)" stroke-width="3"/><rect x="18.5" y="25" width="9" height="17" rx="4.5" fill="var(--face-eye)"/><rect x="36.5" y="20" width="9" height="17" rx="4.5" fill="var(--face-eye)"/></g></svg><b>DevLoops</b><bdi lang="en" class="nw">@devloops_il</bdi></div>
+    <p class="eyebrow">לפני שמעלים עוד אפליקציה</p>
+    <h1>4 הסקילים ל-Claude Code</h1>
+    <p class="lead">כל הקישורים ופקודות ההתקנה מהסרטון. כל הארבעה בחינם, צריך רק את <bdi lang="en" class="nw">Claude Code</bdi>.</p>
+  </header>
+  <section class="how" aria-labelledby="how-h"><h2 id="how-h">איך מתקינים</h2>
+    <ol class="steps"><li><span>פותחים את הטרמינל.</span></li><li><span>מדביקים את הפקודות של כל סקיל.</span></li><li><span>פותחים סשן חדש ב-<bdi lang="en" class="nw">Claude Code</bdi>.</span></li></ol>
+    <a class="jump" href="#all">מעדיפים הכל בבת אחת? כל ההתקנות בפקודה אחת</a></section>
+  <div class="tips">
+  <article class="tip" id="tip-1" aria-labelledby="tip-1-h">
+    <header class="tip-head"><span class="num" aria-hidden="true">01</span>
+      <div class="tip-titles"><h2 id="tip-1-h" lang="en" dir="ltr" style="text-align:right">i-have-adhd</h2><p class="en"><bdi>59,723 כוכבים · MIT</bdi></p></div></header>
+    <p class="why">קלוד מפסיק לחפור. במקום פסקאות ארוכות אתם מקבלים ישר את התשובה, ואחריה צעדים ממוספרים.</p>
+    <div class="prompt"><div class="prompt-bar"><span class="plabel">התקנה</span><button class="copy" type="button" id="copy-1" data-key="1" data-label="העתקה"><span class="ic-copy"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 4.5v-.5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 4v8.5A1.5 1.5 0 0 0 5 14h.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="ic-ok" hidden><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">העתקה</span></button></div>
+      <div class="ptext" data-key="1" lang="he" dir="ltr" style="text-align:left">claude plugin marketplace add ayghri/i-have-adhd
+claude plugin install i-have-adhd@i-have-adhd</div></div>
+    <p class="check"><span class="ck">איך משתמשים</span> כותבים <code dir="ltr">/i-have-adhd</code> בשיחה.</p>
+    <p class="check"><a href="https://github.com/ayghri/i-have-adhd" target="_blank" rel="noopener noreferrer">הריפו בגיטהאב</a></p>
+  </article>
+  <article class="tip" id="tip-2" aria-labelledby="tip-2-h">
+    <header class="tip-head"><span class="num" aria-hidden="true">02</span>
+      <div class="tip-titles"><h2 id="tip-2-h" lang="en" dir="ltr" style="text-align:right">unslop</h2><p class="en"><bdi>5,141 כוכבים · CC BY 4.0</bdi></p></div></header>
+    <p class="why">לוקח ממשק שנראה כאילו AI בנה אותו, מוצא גרדיאנטים סגולים, אימוג׳ים, כותרות צועקות ורווחים לא אחידים, ומעצב אותו מחדש עם אופי משלו. הוא מציע כיוון לפני שהוא משנה משהו.</p>
+    <div class="prompt"><div class="prompt-bar"><span class="plabel">התקנה</span><button class="copy" type="button" id="copy-2" data-key="2" data-label="העתקה"><span class="ic-copy"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 4.5v-.5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 4v8.5A1.5 1.5 0 0 0 5 14h.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="ic-ok" hidden><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">העתקה</span></button></div>
+      <div class="ptext" data-key="2" lang="he" dir="ltr" style="text-align:left">git clone https://github.com/heydamir/unslop
+mkdir -p ~/.claude/skills &amp;&amp; cp -r unslop/skills/unslop ~/.claude/skills/</div></div>
+    <p class="check"><span class="ck">איך משתמשים</span> כותבים <code dir="ltr">/unslop this dashboard</code>, או <code dir="ltr">/unslop my landing page</code>.</p>
+    <p class="check"><a href="https://github.com/heydamir/unslop" target="_blank" rel="noopener noreferrer">הריפו בגיטהאב</a></p>
+  </article>
+  <article class="tip" id="tip-3" aria-labelledby="tip-3-h">
+    <header class="tip-head"><span class="num" aria-hidden="true">03</span>
+      <div class="tip-titles"><h2 id="tip-3-h" lang="en" dir="ltr" style="text-align:right">Ponytail</h2><p class="en"><bdi>182,312 כוכבים · MIT</bdi></p></div></header>
+    <p class="why">קלוד חושב כמו הסניור הכי עצלן בצוות: כותב רק מה שצריך. בבנצ׳מרק של הפרויקט עצמו: 53% פחות קוד, 45% פחות טוקני פלט, וכל 30 ריצות האבטחה עברו.</p>
+    <div class="prompt"><div class="prompt-bar"><span class="plabel">התקנה</span><button class="copy" type="button" id="copy-3" data-key="3" data-label="העתקה"><span class="ic-copy"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 4.5v-.5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 4v8.5A1.5 1.5 0 0 0 5 14h.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="ic-ok" hidden><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">העתקה</span></button></div>
+      <div class="ptext" data-key="3" lang="he" dir="ltr" style="text-align:left">claude plugin marketplace add DietrichGebert/ponytail
+claude plugin install ponytail@ponytail</div></div>
+    <p class="check"><span class="ck">איך משתמשים</span> כותבים <code dir="ltr">/ponytail</code> כדי להפעיל, ו-<code dir="ltr">/ponytail-help</code> לכל הפקודות.</p>
+    <p class="check"><a href="https://github.com/DietrichGebert/ponytail" target="_blank" rel="noopener noreferrer">הריפו בגיטהאב</a></p>
+  </article>
+  <article class="tip" id="tip-4" aria-labelledby="tip-4-h">
+    <header class="tip-head"><span class="num" aria-hidden="true">04</span>
+      <div class="tip-titles"><h2 id="tip-4-h" lang="en" dir="ltr" style="text-align:right">Floorplan</h2><p class="en"><bdi>1,908 כוכבים · MIT · צריך Node 18 ומעלה</bdi></p></div></header>
+    <p class="why">קורא את הקוד ומצייר מפה של כל האפליקציה בשפה פשוטה. ה-<bdi lang="en">Health check</bdi> שלו תופס מפתחות בקוד, טבלאות בסופבייס שכל אחד יכול לקרוא, חוקי <bdi lang="en">Firebase</bdi> פתוחים, <bdi lang="en">webhooks</bdi> של <bdi lang="en">Stripe</bdi> שאפשר לזייף וכתובות בלי התחברות, ולכל ממצא יש תיקון מוכן להדבקה.</p>
+    <div class="prompt"><div class="prompt-bar"><span class="plabel">התקנה</span><button class="copy" type="button" id="copy-4" data-key="4" data-label="העתקה"><span class="ic-copy"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 4.5v-.5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 4v8.5A1.5 1.5 0 0 0 5 14h.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="ic-ok" hidden><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">העתקה</span></button></div>
+      <div class="ptext" data-key="4" lang="he" dir="ltr" style="text-align:left">claude plugin marketplace add haydenschmitty/floorplan
+claude plugin install floorplan@floorplan</div></div>
+    <p class="check"><span class="ck">איך משתמשים</span> בסשן חדש כותבים <code dir="ltr">Make me a floorplan of this app.</code></p>
+    <p class="check"><a href="https://github.com/haydenschmitty/floorplan" target="_blank" rel="noopener noreferrer">הריפו בגיטהאב</a></p>
+  </article></div>
+  <section class="all" id="all" aria-labelledby="all-h"><div class="all-head"><h2 id="all-h">הכל בבת אחת</h2><button class="copy copy-lg" type="button" id="copy-all" data-key="all" data-label="העתקת הכל"><span class="ic-copy"><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><rect x="6.5" y="6.5" width="10" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M13.5 4.5v-.5a1.5 1.5 0 0 0-1.5-1.5H5A1.5 1.5 0 0 0 3.5 4v8.5A1.5 1.5 0 0 0 5 14h.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg></span><span class="ic-ok" hidden><svg class="ico" viewBox="0 0 20 20" aria-hidden="true"><path d="M4.5 10.5l3.5 3.5 7.5-8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="lbl">העתקת הכל</span></button></div>
+    <p>מדביקים בטרמינל, ואז פותחים סשן חדש.</p>
+    <details id="all-text"><summary>הצגת הפקודות</summary><div class="ptext" data-key="all" lang="he" dir="ltr" style="text-align:left">claude plugin marketplace add ayghri/i-have-adhd
+claude plugin install i-have-adhd@i-have-adhd
+git clone https://github.com/heydamir/unslop
+mkdir -p ~/.claude/skills &amp;&amp; cp -r unslop/skills/unslop ~/.claude/skills/
+claude plugin marketplace add DietrichGebert/ponytail
+claude plugin install ponytail@ponytail
+claude plugin marketplace add haydenschmitty/floorplan
+claude plugin install floorplan@floorplan</div></details></section>
+  <section class="next" aria-labelledby="next-h"><p class="eyebrow" id="next-h">עוד כאלה</p>
+    <a class="follow" href="https://www.instagram.com/devloops_il/" target="_blank" rel="noopener noreferrer">עקבו אחרי <bdi lang="en">@devloops_il</bdi> לעדכוני AI בעברית כל יום</a></section>
+  <footer class="foot"><p>אלה פרויקטים של אנשים אחרים, לא של DevLoops. המספרים מהריפואים נכון ל-2 בנובמבר 2026. ה-<bdi lang="en">Health check</bdi> של Floorplan הוא בדיקה בסיסית, לא בדיקת אבטחה מלאה.</p><p>DevLoops · AI בעברית</p></footer>
+</main>
+<div class="toast" id="toast" hidden><span></span></div><div class="sr" id="live" aria-live="polite"></div>
+<script type="application/json" id="prompts">{"1": {"he": "claude plugin marketplace add ayghri/i-have-adhd\nclaude plugin install i-have-adhd@i-have-adhd", "en": "claude plugin marketplace add ayghri/i-have-adhd\nclaude plugin install i-have-adhd@i-have-adhd"}, "2": {"he": "git clone https://github.com/heydamir/unslop\nmkdir -p ~/.claude/skills && cp -r unslop/skills/unslop ~/.claude/skills/", "en": "git clone https://github.com/heydamir/unslop\nmkdir -p ~/.claude/skills && cp -r unslop/skills/unslop ~/.claude/skills/"}, "3": {"he": "claude plugin marketplace add DietrichGebert/ponytail\nclaude plugin install ponytail@ponytail", "en": "claude plugin marketplace add DietrichGebert/ponytail\nclaude plugin install ponytail@ponytail"}, "4": {"he": "claude plugin marketplace add haydenschmitty/floorplan\nclaude plugin install floorplan@floorplan", "en": "claude plugin marketplace add haydenschmitty/floorplan\nclaude plugin install floorplan@floorplan"}, "all": {"he": "claude plugin marketplace add ayghri/i-have-adhd\nclaude plugin install i-have-adhd@i-have-adhd\ngit clone https://github.com/heydamir/unslop\nmkdir -p ~/.claude/skills && cp -r unslop/skills/unslop ~/.claude/skills/\nclaude plugin marketplace add DietrichGebert/ponytail\nclaude plugin install ponytail@ponytail\nclaude plugin marketplace add haydenschmitty/floorplan\nclaude plugin install floorplan@floorplan", "en": "claude plugin marketplace add ayghri/i-have-adhd\nclaude plugin install i-have-adhd@i-have-adhd\ngit clone https://github.com/heydamir/unslop\nmkdir -p ~/.claude/skills && cp -r unslop/skills/unslop ~/.claude/skills/\nclaude plugin marketplace add DietrichGebert/ponytail\nclaude plugin install ponytail@ponytail\nclaude plugin marketplace add haydenschmitty/floorplan\nclaude plugin install floorplan@floorplan"}}</script>
+<script>
+(function(){
+  var P = JSON.parse(document.getElementById('prompts').textContent);
+  var lang = 'he';
+  try { var s = localStorage.getItem('dl-claude5-lang'); if (s === 'he' || s === 'en') lang = s; } catch (e) {}
+  var toastBox = document.getElementById('toast'), live = document.getElementById('live'), tt;
+  function setLang(l){
+    lang = l;
+    document.querySelectorAll('.ptext').forEach(function(el){ el.hidden = el.lang !== l; });
+    document.querySelectorAll('.seg button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.dataset.lang === l)); });
+    try { localStorage.setItem('dl-claude5-lang', l); } catch (e) {}
+  }
+  function toast(msg){
+    toastBox.querySelector('span').textContent = msg; toastBox.hidden = false; live.textContent = msg;
+    clearTimeout(tt); tt = setTimeout(function(){ toastBox.hidden = true; }, 4200);
+  }
+  function legacyCopy(text){
+    var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.opacity = '0'; document.body.appendChild(ta);
+    ta.select(); ta.setSelectionRange(0, text.length); var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta); return ok;
+  }
+  function selectVisible(key){
+    var el = document.querySelector('.ptext[data-key="' + key + '"]:not([hidden])'); if (!el) return;
+    var d = el.closest('details'); if (d) d.open = true;
+    var r = document.createRange(); r.selectNodeContents(el); var sel = window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    el.scrollIntoView({block: 'nearest'});
+  }
+  function done(btn){
+    btn.classList.add('done'); btn.querySelector('.ic-copy').hidden = true; btn.querySelector('.ic-ok').hidden = false;
+    btn.querySelector('.lbl').textContent = 'הועתק'; live.textContent = 'הועתק. עכשיו מדביקים בטרמינל.';
+    setTimeout(function(){ btn.classList.remove('done'); btn.querySelector('.ic-copy').hidden = false; btn.querySelector('.ic-ok').hidden = true; btn.querySelector('.lbl').textContent = btn.dataset.label; }, 2200);
+  }
+  function failed(key){ selectVisible(key); toast('ההעתקה האוטומטית לא עבדה כאן. סימנו לכם את הטקסט, אפשר להעתיק אותו ידנית.'); }
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var key = btn.dataset.key, text = P[key][lang];
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(function(){ done(btn); }, function(){ if (legacyCopy(text)) done(btn); else failed(key); });
+      } else if (legacyCopy(text)) done(btn); else failed(key);
+    });
+  });
+  document.querySelectorAll('.seg button').forEach(function(b){ b.addEventListener('click', function(){ setLang(b.dataset.lang); }); });
+  if (lang !== 'he') setLang(lang);
+})();
+</script></body></html>
